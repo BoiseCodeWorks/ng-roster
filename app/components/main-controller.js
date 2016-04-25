@@ -1,17 +1,17 @@
-app.controller('MainController', function(){
+app.controller('RosterController', function(){
     
-    var mc = this;
+    var rc = this;
     
-    mc.roster = [];
+    rc.roster = [];
     
     
-    mc.addPlayer = function(newPlayer){
-        mc.roster.push(newPlayer) //Adds the new player to the team roster
-        mc.newPlayer = {}; //clears the form;
+    rc.addPlayer = function(newPlayer){
+        rc.roster.push(newPlayer) //Adds the new player to the team roster
+        rc.newPlayer = {}; //clears the form;
     }
     
-    mc.removePlayer = function(index){
-        mc.roster.splice(index, 1);
+    rc.removePlayer = function(index){
+        rc.roster.splice(index, 1);
     }
     
     

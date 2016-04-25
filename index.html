@@ -4,30 +4,36 @@
     <meta charset="UTF-8">
     <title>Angular Intro</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
+    <style>
+        .nope{
+            background-color: red;
+            color: whitesmoke;
+        }
+    </style>
 </head>
 
-<body ng-controller="MainController as mc">
+<body class="container">
 
-    <div class="panel panel-default">
+
+    <div class="panel panel-default" ng-controller="RosterController as rc">
         <div class="panel-heading">
-            <form class="form form-inline" ng-submit="mc.addPlayer(mc.newPlayer)">
-                <input placeholder="Player Name" class="form-control" type="text" ng-model="mc.newPlayer.name">
-                <input placeholder="Jersey Number" class="form-control" type="text" ng-model="mc.newPlayer.jersey">
-                <input placeholder="Position" class="form-control" type="text" ng-model="mc.newPlayer.position">
-                <input placeholder="Photo Url" class="form-control" type="text" ng-model="mc.newPlayer.photo">
+            <form class="form form-inline" ng-submit="rc.addPlayer(rc.newPlayer)">
+                <input placeholder="Player Name" class="form-control" type="text" ng-model="rc.newPlayer.name">
+                <input placeholder="Jersey Number" class="form-control" type="text" ng-model="rc.newPlayer.jersey">
+                <input placeholder="Position" class="form-control" type="text" ng-model="rc.newPlayer.position">
+                <input placeholder="Photo Url" class="form-control" type="text" ng-model="rc.newPlayer.photo">
                 <button class="btn btn-primary" type="submit">Add Player</button>
             </form>
         </div>
         <div class="panel-body">
             <div class="player-roster">
-                <div class="player-card col-sm-4 panel" ng-repeat="player in mc.roster">
+                <div class="player-card col-sm-4 panel" ng-repeat="player in rc.roster">
                     <div class="panel-body">
                         <img ng-src="{{player.photo}}" width="200">
                         <h1>{{player.name}}</h1>
                         <p>{{player.position}}: {{player.jersey}}</p>
                         <div class="button-group">
-                            <button class="btn btn-block btn-danger" ng-click="mc.removePlayer($index)">TRASH HIM</button>
+                            <button class="btn btn-block btn-danger" ng-click="rc.removePlayer($index)">TRASH HIM</button>
                         </div>
                     </div>
                 </div>
@@ -35,6 +41,37 @@
         </div>
     </div>
 
+    <div class="panel panel-primary" ng-controller="TodoController as tc">
+        <div class="panel-heading">
+            {{tc.test}}
+            <form ng-submit="tc.addTask(tc.newTask)" class="form form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="tc.newTask.title">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="tc.newTask.responsibleParty">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-control" ng-model="tc.newTask.dueBy">
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-large btn-success">Add Task</button>
+                    <button type="reset" class="btn btn-large btn-danger">Clear Form</button>
+                </div>
+            </form>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="x in tc.tasks" ng-class="{'active': x.accepted, 'nope': x.denied}">
+                    {{x.title}} - {{x.responsibleParty}} {{x.dueBy | date:'GGGG'}}
+                    <button ng-click="tc.acceptTask(x)">Accept</button>
+                    <button ng-click="x.denied = true">Refute</button>
+                    <span class="badge" ng-click="tc.removeTask(x, $index)">X</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
 
 
 
@@ -42,6 +79,7 @@
 
     <script src="app/app.js"></script>
     <script src="app/components/main-controller.js"></script>
+    <script src="app/components/todo-controller.js"></script>
 
 
 </body>
