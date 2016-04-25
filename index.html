@@ -1,0 +1,49 @@
+<html ng-app="ng-intro">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Intro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+</head>
+
+<body ng-controller="MainController as mc">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <form class="form form-inline" ng-submit="mc.addPlayer(mc.newPlayer)">
+                <input placeholder="Player Name" class="form-control" type="text" ng-model="mc.newPlayer.name">
+                <input placeholder="Jersey Number" class="form-control" type="text" ng-model="mc.newPlayer.jersey">
+                <input placeholder="Position" class="form-control" type="text" ng-model="mc.newPlayer.position">
+                <input placeholder="Photo Url" class="form-control" type="text" ng-model="mc.newPlayer.photo">
+                <button class="btn btn-primary" type="submit">Add Player</button>
+            </form>
+        </div>
+        <div class="panel-body">
+            <div class="player-roster">
+                <div class="player-card col-sm-4 panel" ng-repeat="player in mc.roster">
+                    <div class="panel-body">
+                        <img ng-src="{{player.photo}}" width="200">
+                        <h1>{{player.name}}</h1>
+                        <p>{{player.position}}: {{player.jersey}}</p>
+                        <div class="button-group">
+                            <button class="btn btn-block btn-danger" ng-click="mc.removePlayer($index)">TRASH HIM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/components/main-controller.js"></script>
+
+
+</body>
+
+</html>
